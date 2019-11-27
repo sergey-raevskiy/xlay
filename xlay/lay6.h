@@ -1,6 +1,7 @@
 #pragma once
 
 #include <windows.h>
+#include <atlstr.h>
 
 #define ASSERT_SIZE(_struct, size) \
     C_ASSERT(sizeof(_struct) == (size))
@@ -14,6 +15,11 @@ struct LAY_String
 {
     UCHAR len;
     UCHAR data[max_len];
+
+    CStringA str()
+    {
+        return CStringA(LPCSTR(data), len);
+    }
 };
 #pragma pack(pop)
 
