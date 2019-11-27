@@ -117,7 +117,8 @@ struct LAY_BoardHeader
     UCHAR __pad4[7];
 
     UCHAR is_multilayer;
-    DWORD unk5;
+
+    UCHAR __pad5[4];
 };
 #pragma pack(pop)
 
