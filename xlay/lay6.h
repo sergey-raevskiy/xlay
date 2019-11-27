@@ -27,23 +27,29 @@ struct LAY_String
 #pragma pack(push, 1)
 struct LAY_CrazyFloat
 {
-    UCHAR lo;
-    UCHAR hi;
+    UINT16 lo;
+    UINT16 hi;
 
-    UINT16 mantisa()
+    UINT mantisa()
     {
-        return lo + ((hi & 0x0f) << 8) + 0x1000;
+        UINT r = lo;
+        r += (hi & 0xf) << 16;
+        r += 0x100000;
+        return r;
     }
 
-    UCHAR exponent()
+    UINT exponent()
     {
-        return (hi >> 4) & 0xf;
+        UINT r = hi;
+        r >>= 4;
+        r &= 0xff;
+        return r;
     }
 
     CStringA str()
     {
-        UINT16 m = mantisa();
-        int e = exponent() - 11;
+        UINT m = mantisa();
+        int e = exponent() - 35; // wtf
         float val = m * pow(2.f, e);
 
         CStringA s;
@@ -86,9 +92,9 @@ struct LAY_BoardHeader
     DWORD size_y;
 
     UCHAR ground_pane[7];
-    UCHAR __pad1[5];
+    UCHAR __pad1[4];
     LAY_CrazyFloat active_grid_val;
-    UCHAR __pad1_1[17];
+    UCHAR __pad1_1[16];
 
     UCHAR active_layer;
     UCHAR __pad2[3]; // DWORD?
@@ -119,7 +125,7 @@ ASSERT_SIZE(LAY_BoardHeader, 534);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, size_x, 0x23);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, size_y, 0x27);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, ground_pane, 0x2b);
-ASSERT_FIELD_OFFSET(LAY_BoardHeader, active_grid_val, 0x37);
+ASSERT_FIELD_OFFSET(LAY_BoardHeader, active_grid_val, 0x36);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, layer_visible, 0x4e);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, scanned_copy_top_path, 0x57);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, scanned_copy_bottom_path, 0x120);

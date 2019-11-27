@@ -91,6 +91,7 @@ int main()
         CStringW wname(bhdr.name.str());
         CStringW sizeX;
         CStringW sizeY;
+        //CStringW unk(bhdr.unk22.str());
 
         sizeX.Format(L"%d", bhdr.size_x);
         sizeY.Format(L"%d", bhdr.size_y);
