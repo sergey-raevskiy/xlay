@@ -68,7 +68,18 @@ struct LAY_BoardHeader
     LAY_String<200> scanned_copy_top_path;
     LAY_String<200> scanned_copy_bottom_path;
 
-    UCHAR __pad3[45];
+    DWORD unk1;
+    DWORD unk2;
+
+    UCHAR __pad3[17];
+
+    DWORD unk3;
+    DWORD unk4;
+
+    UCHAR __pad4[7];
+
+    DWORD unk5;
+    UCHAR unk6;
 };
 #pragma pack(pop)
 
@@ -79,3 +90,4 @@ ASSERT_FIELD_OFFSET(LAY_BoardHeader, ground_pane, 0x2b);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, layer_visible, 0x4e);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, scanned_copy_top_path, 0x57);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, scanned_copy_bottom_path, 0x120);
+ASSERT_FIELD_OFFSET(LAY_BoardHeader, unk1, 0x1e9);
