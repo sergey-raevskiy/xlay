@@ -49,7 +49,7 @@ struct LAY_CrazyFloat
     CStringA str()
     {
         UINT m = mantisa();
-        int e = exponent() - 35; // wtf
+        int e = exponent() - 19; // wtf
         float val = m * pow(2.f, e);
 
         CStringA s;
