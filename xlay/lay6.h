@@ -96,7 +96,8 @@ struct LAY_BoardHeader
     LAY_CrazyFloat active_grid_val;
     UCHAR __pad1_1[4];
     DWORD zoom; // ?
-    UCHAR __pad1_2[8];
+    DWORD viewport_offset_x;
+    DWORD viewport_offset_y;
 
     UCHAR active_layer;
     UCHAR __pad2[3]; // DWORD?
