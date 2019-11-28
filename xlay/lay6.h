@@ -111,12 +111,13 @@ struct LAY_BoardHeader
     DWORD unk1;
     DWORD unk2;
 
-    UCHAR __pad3[17];
+    UCHAR __pad3[16];
 
     DWORD unk3;
     DWORD unk4;
 
-    UCHAR __pad4[7];
+    DWORD center_x; // ?
+    DWORD center_y; // ?
 
     UCHAR is_multilayer;
 
@@ -133,4 +134,6 @@ ASSERT_FIELD_OFFSET(LAY_BoardHeader, zoom, 0x3e);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, layer_visible, 0x4e);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, scanned_copy_top_path, 0x57);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, scanned_copy_bottom_path, 0x120);
+ASSERT_FIELD_OFFSET(LAY_BoardHeader, center_x, 0x209);
+ASSERT_FIELD_OFFSET(LAY_BoardHeader, center_y, 0x20d);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, unk1, 0x1e9);
