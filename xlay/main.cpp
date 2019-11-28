@@ -99,8 +99,8 @@ int main()
         sizeX.Format(L"%d", bhdr.size_x);
         sizeY.Format(L"%d", bhdr.size_y);
         zoom.Format(L"%d", UINT(bhdr.zoom));
-        centerX.Format(L"%u", bhdr.center_x);
-        centerY.Format(L"%u", bhdr.center_y);
+        centerX.Format(L"%d", bhdr.center_x);
+        centerY.Format(L"%d", bhdr.center_y);
 
         pXmlWriter->WriteStartElement(NULL, L"bhdr", NULL);
         pXmlWriter->WriteAttributeString(NULL, L"name", NULL, wname);
