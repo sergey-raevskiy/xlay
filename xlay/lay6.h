@@ -94,7 +94,9 @@ struct LAY_BoardHeader
     UCHAR ground_pane[7];
     UCHAR __pad1[4];
     LAY_CrazyFloat active_grid_val;
-    UCHAR __pad1_1[16];
+    UCHAR __pad1_1[6];
+    UINT16 zoom;
+    UCHAR __pad1_2[8];
 
     UCHAR active_layer;
     UCHAR __pad2[3]; // DWORD?
@@ -127,6 +129,7 @@ ASSERT_FIELD_OFFSET(LAY_BoardHeader, size_x, 0x23);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, size_y, 0x27);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, ground_pane, 0x2b);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, active_grid_val, 0x36);
+ASSERT_FIELD_OFFSET(LAY_BoardHeader, zoom, 0x40);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, layer_visible, 0x4e);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, scanned_copy_top_path, 0x57);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, scanned_copy_bottom_path, 0x120);

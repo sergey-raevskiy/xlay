@@ -91,16 +91,19 @@ int main()
         CStringW wname(bhdr.name.str());
         CStringW sizeX;
         CStringW sizeY;
+        CStringW zoom;
         //CStringW unk(bhdr.unk22.str());
 
         sizeX.Format(L"%d", bhdr.size_x);
         sizeY.Format(L"%d", bhdr.size_y);
+        zoom.Format(L"%d", UINT(bhdr.zoom));
 
         pXmlWriter->WriteStartElement(NULL, L"bhdr", NULL);
         pXmlWriter->WriteAttributeString(NULL, L"name", NULL, wname);
         pXmlWriter->WriteAttributeString(NULL, L"sizeX", NULL, sizeX);
         pXmlWriter->WriteAttributeString(NULL, L"sizeY", NULL, sizeY);
         pXmlWriter->WriteAttributeString(NULL, L"activeGridStep", NULL, CStringW(bhdr.active_grid_val.str()));
+        pXmlWriter->WriteAttributeString(NULL, L"zoom", NULL, zoom);
         pXmlWriter->WriteEndElement();
     }
 
