@@ -116,8 +116,8 @@ struct LAY_BoardHeader
     DWORD unk3;
     DWORD unk4;
 
-    DWORD center_x; // ?
-    DWORD center_y; // ?
+    DWORD center_x; // mm/10000
+    DWORD center_y; // mm/10000
 
     UCHAR is_multilayer;
 
