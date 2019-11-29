@@ -139,6 +139,7 @@ int main()
     xmlAttr(pXmlWriter, L"out", obj.out*2);
     xmlAttr(pXmlWriter, L"in", obj.in*2);
     xmlAttrU(pXmlWriter, L"metal", obj.metalisation);
+    xmlAttrU(pXmlWriter, L"thermo", obj.thermobarier);
     pXmlWriter->WriteEndElement();
 
     pXmlWriter->WriteEndElement();
