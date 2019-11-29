@@ -142,6 +142,7 @@ int main()
     xmlAttrU(pXmlWriter, L"thermo", obj.thermobarier);
     xmlAttrU(pXmlWriter, L"th_style_custom", obj.th_style_custom);
     xmlAttrU(pXmlWriter, L"shape", obj.tht_shape);
+    xmlAttrU(pXmlWriter, L"thzise", obj.thzise);
     pXmlWriter->WriteEndElement();
 
     pXmlWriter->WriteEndElement();
