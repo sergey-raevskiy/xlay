@@ -141,8 +141,8 @@ int main()
         pXmlWriter->WriteEndElement();
     }
 
-    LAY_Object obj;
-    fread_s(&obj, sizeof(obj), sizeof(obj), 1, lay);
+    CLayObject obj;
+    obj.Read(lay);
 
     pXmlWriter->WriteStartElement(NULL, L"obj", NULL);
     xmlAttr(pXmlWriter, L"x", obj.x);
