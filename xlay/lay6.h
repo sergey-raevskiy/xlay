@@ -186,7 +186,8 @@ struct LAY_Object
 
     UCHAR __pad2[9];
     UCHAR thermobarier;
-    UCHAR __pad3[2];
+    UCHAR __pad3;
+    UCHAR cutoff;
     DWORD thzise;
     UCHAR metalisation;
 

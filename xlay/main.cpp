@@ -155,6 +155,7 @@ int main()
     xmlAttrU(pXmlWriter, L"thzise", obj.thzise);
     xmlAttrX(pXmlWriter, L"th_style", obj.th_style, sizeof(obj.th_style));
     xmlAttrU(pXmlWriter, L"layer", obj.layer);
+    xmlAttrU(pXmlWriter, L"cutoff", obj.cutoff);
     pXmlWriter->WriteAttributeString(NULL, L"text", NULL, CStringW(obj.text, obj.text_len));
     pXmlWriter->WriteEndElement();
 
