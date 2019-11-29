@@ -62,7 +62,7 @@ int main()
     FILE *lay;
     HRESULT hr;
 
-    errno = fopen_s(&lay, "C:\\Users\\Sergey.Raevskiy\\Downloads\\test4.lay6", "rb");
+    errno = fopen_s(&lay, "C:\\Users\\Sergey.Raevskiy\\Downloads\\test9.lay6", "rb");
     if (errno)
     {
         printf("fopen_s() failed: %d\n", errno);
@@ -94,6 +94,7 @@ int main()
         CStringW zoom;
         CStringW centerX;
         CStringW centerY;
+        CStringW numObjects;
         //CStringW unk(bhdr.unk22.str());
 
         sizeX.Format(L"%d", bhdr.size_x);
@@ -101,6 +102,7 @@ int main()
         zoom.Format(L"%d", UINT(bhdr.zoom));
         centerX.Format(L"%d", bhdr.center_x);
         centerY.Format(L"%d", bhdr.center_y);
+        numObjects.Format(L"%u", bhdr.num_objects);
 
         pXmlWriter->WriteStartElement(NULL, L"bhdr", NULL);
         pXmlWriter->WriteAttributeString(NULL, L"name", NULL, wname);
@@ -110,8 +112,15 @@ int main()
         pXmlWriter->WriteAttributeString(NULL, L"zoom", NULL, zoom);
         pXmlWriter->WriteAttributeString(NULL, L"centerX", NULL, centerX);
         pXmlWriter->WriteAttributeString(NULL, L"centerY", NULL, centerY);
+        pXmlWriter->WriteAttributeString(NULL, L"numObjects", NULL, numObjects);
         pXmlWriter->WriteEndElement();
     }
+
+    LAY_Object obj;
+    fread_s(&obj, sizeof(obj), sizeof(obj), 1, lay);
+
+    pXmlWriter->WriteStartElement(NULL, L"obj", NULL);
+    pXmlWriter->WriteEndElement();
 
     pXmlWriter->WriteEndElement();
 

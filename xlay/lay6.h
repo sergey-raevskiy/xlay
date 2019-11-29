@@ -122,7 +122,7 @@ struct LAY_BoardHeader
 
     UCHAR is_multilayer;
 
-    UCHAR __pad5[4];
+    DWORD num_objects;
 };
 #pragma pack(pop)
 
@@ -138,3 +138,26 @@ ASSERT_FIELD_OFFSET(LAY_BoardHeader, scanned_copy_bottom_path, 0x120);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, center_x, 0x209);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, center_y, 0x20d);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, unk1, 0x1e9);
+
+enum
+{
+    OBJ_THT_PAD = 2,
+    OBJ_POLY = 4,
+    OBJ_CIRCLE = 5,
+    OBJ_LINE = 6,
+    OBJ_TEXT = 7,
+    OBJ_SMD_PAD = 8,
+};
+
+#pragma pack(push, 1)
+struct LAY_Object
+{
+    UCHAR type;
+    DWORD x;
+    DWORD y;
+    DWORD out;
+    DWORD in;
+
+    UCHAR Data[100];
+};
+#pragma pack(pop)
