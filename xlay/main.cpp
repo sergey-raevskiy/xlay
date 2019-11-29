@@ -146,7 +146,7 @@ int main()
     pXmlWriter->WriteStartElement(NULL, L"obj", NULL);
     xmlAttr(pXmlWriter, L"x", obj.x);
     xmlAttr(pXmlWriter, L"y", obj.y);
-    xmlAttr(pXmlWriter, L"out", obj.out); // radius for tht
+    xmlAttr(pXmlWriter, L"out", obj.out); // radius for tht, height for text
     xmlAttr(pXmlWriter, L"in", obj.in); // also line width for text
     xmlAttrU(pXmlWriter, L"metal", obj.metalisation);
     xmlAttrU(pXmlWriter, L"thermo", obj.thermobarier);
