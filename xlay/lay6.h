@@ -195,9 +195,6 @@ struct LAY_Object
     UCHAR metalisation;
 
     UCHAR __pad4[19];
-
-    DWORD text_len;
-    CHAR text[50];
 };
 #pragma pack(pop)
 
@@ -206,7 +203,6 @@ ASSERT_FIELD_OFFSET(LAY_Object, th_style, 0x1f);
 ASSERT_FIELD_OFFSET(LAY_Object, th_style_custom, 0x28);
 ASSERT_FIELD_OFFSET(LAY_Object, thermobarier, 0x32);
 ASSERT_FIELD_OFFSET(LAY_Object, metalisation, 0x39);
-ASSERT_FIELD_OFFSET(LAY_Object, text_len, 0x4d);
 
 class CLayFileHeader : public LAY_FileHeader
 {
@@ -235,11 +231,24 @@ public:
 class CLayObject : public LAY_Object
 {
 public:
+    CStringA text;
+    CStringA marker;
+
     CLayObject()
     {}
 
     void Read(FILE *file)
     {
+        DWORD len;
+
         fread_s((LAY_Object *) this, sizeof(LAY_Object), sizeof(LAY_Object), 1, file);
+
+        fread_s(&len, sizeof(len), sizeof(len), 1, file);
+        fread_s(text.GetBuffer(len), len, 1, len, file);
+        text.ReleaseBuffer(len);
+
+        fread_s(&len, sizeof(len), sizeof(len), 1, file);
+        fread_s(marker.GetBuffer(len), len, 1, len, file);
+        marker.ReleaseBuffer(len);
     }
 };
