@@ -173,7 +173,8 @@ struct LAY_Object
     float out;
     float in;
 
-    UCHAR __pad1[6];
+    UCHAR __pad1[5];
+    UCHAR layer;
     UCHAR tht_shape;
 
     UCHAR __pad1_1[7];

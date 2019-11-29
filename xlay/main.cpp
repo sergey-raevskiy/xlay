@@ -154,6 +154,7 @@ int main()
     xmlAttrU(pXmlWriter, L"shape", obj.tht_shape);
     xmlAttrU(pXmlWriter, L"thzise", obj.thzise);
     xmlAttrX(pXmlWriter, L"th_style", obj.th_style, sizeof(obj.th_style));
+    xmlAttrU(pXmlWriter, L"layer", obj.layer);
     pXmlWriter->WriteEndElement();
 
     pXmlWriter->WriteEndElement();
