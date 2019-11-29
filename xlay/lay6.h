@@ -185,7 +185,7 @@ struct LAY_Object
     };
 
     UCHAR __pad1_2[5];
-    UCHAR th_style_custom;
+    UCHAR th_style_custom; // also fill
 
     UCHAR __pad2[9];
     UCHAR thermobarier;
@@ -203,6 +203,7 @@ struct LAY_Object
 
 ASSERT_FIELD_OFFSET(LAY_Object, tht_shape, 0x17);
 ASSERT_FIELD_OFFSET(LAY_Object, th_style, 0x1f);
+ASSERT_FIELD_OFFSET(LAY_Object, th_style_custom, 0x28);
 ASSERT_FIELD_OFFSET(LAY_Object, thermobarier, 0x32);
 ASSERT_FIELD_OFFSET(LAY_Object, metalisation, 0x39);
 ASSERT_FIELD_OFFSET(LAY_Object, text_len, 0x4d);
