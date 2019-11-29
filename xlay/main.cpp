@@ -175,6 +175,7 @@ int main()
         }
 
         pXmlWriter->WriteEndElement();
+        pXmlWriter->Flush();
     }
 
     pXmlWriter->WriteEndElement();
