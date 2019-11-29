@@ -149,15 +149,31 @@ enum
     OBJ_SMD_PAD = 8,
 };
 
+enum
+{
+    THT_SHAPE_CIRCLE = 1,
+    THT_SHAPE_OCT = 2,
+    THT_SHAPE_SQUARE = 3,
+};
+
 #pragma pack(push, 1)
 struct LAY_Object
 {
     UCHAR type;
-    DWORD x;
-    DWORD y;
-    DWORD out;
-    DWORD in;
+    float x;
+    float y;
+    float out;
+    float in;
+
+    UCHAR __pad1[6];
+    UCHAR tht_shape;
+
+    UCHAR __pad2[33];
+    UCHAR metalisation;
 
     UCHAR Data[100];
 };
 #pragma pack(pop)
+
+ASSERT_FIELD_OFFSET(LAY_Object, tht_shape, 0x17);
+ASSERT_FIELD_OFFSET(LAY_Object, metalisation, 0x39);

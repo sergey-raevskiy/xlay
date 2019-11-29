@@ -55,6 +55,20 @@ private:
     }
 };
 
+static void xmlAttr(IXmlWriter *pw, LPCWSTR name, float a)
+{
+    CStringW val;
+    val.Format(L"%f", a);
+    pw->WriteAttributeString(NULL, name, NULL, val);
+}
+
+static void xmlAttrU(IXmlWriter *pw, LPCWSTR name, UINT a)
+{
+    CStringW val;
+    val.Format(L"%u", a);
+    pw->WriteAttributeString(NULL, name, NULL, val);
+}
+
 int main()
 {
     IXmlWriter *pXmlWriter;
@@ -120,6 +134,11 @@ int main()
     fread_s(&obj, sizeof(obj), sizeof(obj), 1, lay);
 
     pXmlWriter->WriteStartElement(NULL, L"obj", NULL);
+    xmlAttr(pXmlWriter, L"x", obj.x);
+    xmlAttr(pXmlWriter, L"y", obj.y);
+    xmlAttr(pXmlWriter, L"out", obj.out*2);
+    xmlAttr(pXmlWriter, L"in", obj.in*2);
+    xmlAttrU(pXmlWriter, L"metal", obj.metalisation);
     pXmlWriter->WriteEndElement();
 
     pXmlWriter->WriteEndElement();
