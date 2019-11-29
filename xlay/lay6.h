@@ -173,7 +173,7 @@ struct LAY_Object
     float out; // rin (for circles)
     float in; // rout (for circles)
 
-    DWORD line_width; // start angle (for circles)
+    DWORD line_width; // end angle (for circles)
     UCHAR __pad1;
     UCHAR layer;
     UCHAR tht_shape;
