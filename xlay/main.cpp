@@ -105,8 +105,8 @@ int main()
 
     pXmlWriter->WriteStartElement(NULL, L"xlay", NULL);
 
-    LAY_FileHeader fileHeader;
-    fread_s(&fileHeader, sizeof(fileHeader), sizeof(fileHeader), 1, lay);
+    CLayFileHeader fileHeader;
+    fileHeader.Read(lay);
 
     for (int i = 0; i < fileHeader.num_boards; i++)
     {

@@ -208,6 +208,18 @@ ASSERT_FIELD_OFFSET(LAY_Object, thermobarier, 0x32);
 ASSERT_FIELD_OFFSET(LAY_Object, metalisation, 0x39);
 ASSERT_FIELD_OFFSET(LAY_Object, text_len, 0x4d);
 
+class CLayFileHeader : public LAY_FileHeader
+{
+public:
+    CLayFileHeader()
+    {}
+
+    void Read(FILE *file)
+    {
+        fread_s((LAY_FileHeader *) this, sizeof(LAY_FileHeader), sizeof(LAY_FileHeader), 1, file);
+    }
+};
+
 class CLayBoardHeader : public LAY_BoardHeader
 {
 public:
