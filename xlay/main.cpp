@@ -69,6 +69,16 @@ static void xmlAttrU(IXmlWriter *pw, LPCWSTR name, UINT a)
     pw->WriteAttributeString(NULL, name, NULL, val);
 }
 
+static void xmlAttrX(IXmlWriter *pw, LPCWSTR name, UCHAR *v, int len)
+{
+    CStringW val;
+    for (int i = 0; i < len; i++)
+    {
+        val.AppendFormat(L"%02x", v[i]);
+    }
+    pw->WriteAttributeString(NULL, name, NULL, val);
+}
+
 int main()
 {
     IXmlWriter *pXmlWriter;
@@ -136,13 +146,14 @@ int main()
     pXmlWriter->WriteStartElement(NULL, L"obj", NULL);
     xmlAttr(pXmlWriter, L"x", obj.x);
     xmlAttr(pXmlWriter, L"y", obj.y);
-    xmlAttr(pXmlWriter, L"out", obj.out*2);
-    xmlAttr(pXmlWriter, L"in", obj.in*2);
+    xmlAttr(pXmlWriter, L"out", obj.out); // radius for tht
+    xmlAttr(pXmlWriter, L"in", obj.in);
     xmlAttrU(pXmlWriter, L"metal", obj.metalisation);
     xmlAttrU(pXmlWriter, L"thermo", obj.thermobarier);
     xmlAttrU(pXmlWriter, L"th_style_custom", obj.th_style_custom);
     xmlAttrU(pXmlWriter, L"shape", obj.tht_shape);
     xmlAttrU(pXmlWriter, L"thzise", obj.thzise);
+    xmlAttrX(pXmlWriter, L"th_style", obj.th_style, sizeof(obj.th_style));
     pXmlWriter->WriteEndElement();
 
     pXmlWriter->WriteEndElement();
