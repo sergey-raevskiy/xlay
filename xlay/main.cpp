@@ -191,6 +191,13 @@ int main()
         pXmlWriter->WriteAttributeString(NULL, L"text", NULL, CStringW(obj.text));
         pXmlWriter->WriteAttributeString(NULL, L"marker", NULL, CStringW(obj.marker));
 
+        for (int i = 0; i < obj.groups.GetCount(); i++)
+        {
+            pXmlWriter->WriteStartElement(NULL, L"group", NULL);
+            xmlAttrU(pXmlWriter, L"g", obj.groups[i]);
+            pXmlWriter->WriteEndElement();
+        }
+
         for (int i = 0; i < obj.poly_points.GetCount(); i++)
         {
             pXmlWriter->WriteStartElement(NULL, L"poly-point", NULL);

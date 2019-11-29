@@ -245,6 +245,7 @@ class CLayObject : public LAY_Object
 public:
     CStringA text;
     CStringA marker;
+    CAtlArray<DWORD> groups;
     CAtlArray<LAY_Point> poly_points; //??
     CAtlArray<CLayObject> text_objects;
 
@@ -269,9 +270,9 @@ public:
             fread_s(marker.GetBuffer(len), len, 1, len, file);
             marker.ReleaseBuffer(len);
 
-            // unk
             fread_s(&len, sizeof(len), sizeof(len), 1, file);
-            assert(len == 0);
+            groups.SetCount(len);
+            fread_s(groups.GetData(), sizeof(DWORD) * len, sizeof(DWORD), len, file);
         }
 
         if (type == OBJ_CIRCLE)
