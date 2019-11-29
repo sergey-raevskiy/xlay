@@ -149,7 +149,7 @@ int main()
     xmlAttr(pXmlWriter, L"out", obj.out); // radius for tht, height for text
     xmlAttr(pXmlWriter, L"in", obj.in); // also line width for text
     xmlAttrU(pXmlWriter, L"metal", obj.metalisation);
-    xmlAttrU(pXmlWriter, L"thermo", obj.thermobarier);
+    xmlAttrU(pXmlWriter, L"thermo", obj.thermobarier); // flip horizontal for text
     xmlAttrU(pXmlWriter, L"th_style_custom", obj.th_style_custom);
     xmlAttrU(pXmlWriter, L"shape", obj.tht_shape);
     xmlAttrU(pXmlWriter, L"thzise", obj.thzise);
@@ -157,6 +157,7 @@ int main()
     xmlAttrU(pXmlWriter, L"layer", obj.layer);
     xmlAttrU(pXmlWriter, L"cutoff", obj.cutoff);
     xmlAttrU(pXmlWriter, L"line-width", obj.line_width); // also text style?
+    xmlAttrU(pXmlWriter, L"flip-vertical", obj.flip_vertical); // also text style?
     pXmlWriter->WriteAttributeString(NULL, L"text", NULL, CStringW(obj.text, obj.text_len));
     pXmlWriter->WriteEndElement();
 
