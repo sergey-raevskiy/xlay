@@ -168,9 +168,13 @@ struct LAY_Object
     UCHAR __pad1[6];
     UCHAR tht_shape;
 
-    UCHAR __pad2[26];
+    UCHAR __pad1_1[7];
+    UCHAR th_style[4];
+
+    UCHAR __pad2[15];
     UCHAR thermobarier;
-    UCHAR __pad3[6];
+    UCHAR __pad3[2];
+    DWORD thzise;
     UCHAR metalisation;
 
     UCHAR Data[100];
@@ -178,5 +182,6 @@ struct LAY_Object
 #pragma pack(pop)
 
 ASSERT_FIELD_OFFSET(LAY_Object, tht_shape, 0x17);
+ASSERT_FIELD_OFFSET(LAY_Object, th_style, 0x1f);
 ASSERT_FIELD_OFFSET(LAY_Object, thermobarier, 0x32);
 ASSERT_FIELD_OFFSET(LAY_Object, metalisation, 0x39);
