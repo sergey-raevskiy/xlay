@@ -110,8 +110,9 @@ int main()
 
     for (int i = 0; i < fileHeader.num_boards; i++)
     {
-        LAY_BoardHeader bhdr;
-        fread_s(&bhdr, sizeof(bhdr), sizeof(bhdr), 1, lay);
+        CLayBoardHeader bhdr;
+        bhdr.Read(lay);
+
         CStringW wname(bhdr.name.str());
         CStringW sizeX;
         CStringW sizeY;
