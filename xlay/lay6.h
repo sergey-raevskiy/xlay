@@ -179,7 +179,10 @@ struct LAY_Object
     UCHAR __pad1_1[7];
     UCHAR th_style[4];
 
-    UCHAR __pad2[15];
+    UCHAR __pad1_2[5];
+    UCHAR th_style_custom;
+
+    UCHAR __pad2[9];
     UCHAR thermobarier;
     UCHAR __pad3[2];
     DWORD thzise;
