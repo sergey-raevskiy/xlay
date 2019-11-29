@@ -107,6 +107,7 @@ int main()
 
     CLayFileHeader fileHeader;
     fileHeader.Read(lay);
+    int nobjects = 0;
 
     for (int i = 0; i < fileHeader.num_boards; i++)
     {
@@ -128,6 +129,7 @@ int main()
         centerX.Format(L"%d", bhdr.center_x);
         centerY.Format(L"%d", bhdr.center_y);
         numObjects.Format(L"%u", bhdr.num_objects);
+        nobjects = bhdr.num_objects;
 
         pXmlWriter->WriteStartElement(NULL, L"bhdr", NULL);
         pXmlWriter->WriteAttributeString(NULL, L"name", NULL, wname);
@@ -141,36 +143,39 @@ int main()
         pXmlWriter->WriteEndElement();
     }
 
-    CLayObject obj;
-    obj.Read(lay);
-
-    pXmlWriter->WriteStartElement(NULL, L"obj", NULL);
-    xmlAttr(pXmlWriter, L"x", obj.x);
-    xmlAttr(pXmlWriter, L"y", obj.y);
-    xmlAttr(pXmlWriter, L"out", obj.out); // radius for tht, height for text
-    xmlAttr(pXmlWriter, L"in", obj.in); // also line width for text
-    xmlAttrU(pXmlWriter, L"metal", obj.metalisation);
-    xmlAttrU(pXmlWriter, L"thermo", obj.thermobarier); // flip horizontal for text
-    xmlAttrU(pXmlWriter, L"th_style_custom", obj.th_style_custom);
-    xmlAttrU(pXmlWriter, L"shape", obj.tht_shape);
-    xmlAttrU(pXmlWriter, L"thzise", obj.thzise);
-    xmlAttrX(pXmlWriter, L"th_style", obj.th_style, sizeof(obj.th_style));
-    xmlAttrU(pXmlWriter, L"layer", obj.layer);
-    xmlAttrU(pXmlWriter, L"cutoff", obj.cutoff);
-    xmlAttrU(pXmlWriter, L"line-width", obj.line_width); // also text style?
-    xmlAttrU(pXmlWriter, L"flip-vertical", obj.flip_vertical); // also text style?
-    pXmlWriter->WriteAttributeString(NULL, L"text", NULL, CStringW(obj.text));
-    pXmlWriter->WriteAttributeString(NULL, L"marker", NULL, CStringW(obj.marker));
-
-    for (int i = 0; i < obj.poly_points.GetCount(); i++)
+    for (int nob = 0; nob < nobjects; nob++)
     {
-        pXmlWriter->WriteStartElement(NULL, L"poly-point", NULL);
-        xmlAttr(pXmlWriter, L"x", obj.poly_points[i].x);
-        xmlAttr(pXmlWriter, L"y", obj.poly_points[i].y);
+        CLayObject obj;
+        obj.Read(lay);
+
+        pXmlWriter->WriteStartElement(NULL, L"obj", NULL);
+        xmlAttr(pXmlWriter, L"x", obj.x);
+        xmlAttr(pXmlWriter, L"y", obj.y);
+        xmlAttr(pXmlWriter, L"out", obj.out); // radius for tht, height for text
+        xmlAttr(pXmlWriter, L"in", obj.in); // also line width for text
+        xmlAttrU(pXmlWriter, L"metal", obj.metalisation);
+        xmlAttrU(pXmlWriter, L"thermo", obj.thermobarier); // flip horizontal for text
+        xmlAttrU(pXmlWriter, L"th_style_custom", obj.th_style_custom);
+        xmlAttrU(pXmlWriter, L"shape", obj.tht_shape);
+        xmlAttrU(pXmlWriter, L"thzise", obj.thzise);
+        xmlAttrX(pXmlWriter, L"th_style", obj.th_style, sizeof(obj.th_style));
+        xmlAttrU(pXmlWriter, L"layer", obj.layer);
+        xmlAttrU(pXmlWriter, L"cutoff", obj.cutoff);
+        xmlAttrU(pXmlWriter, L"line-width", obj.line_width); // also text style?
+        xmlAttrU(pXmlWriter, L"flip-vertical", obj.flip_vertical); // also text style?
+        pXmlWriter->WriteAttributeString(NULL, L"text", NULL, CStringW(obj.text));
+        pXmlWriter->WriteAttributeString(NULL, L"marker", NULL, CStringW(obj.marker));
+
+        for (int i = 0; i < obj.poly_points.GetCount(); i++)
+        {
+            pXmlWriter->WriteStartElement(NULL, L"poly-point", NULL);
+            xmlAttr(pXmlWriter, L"x", obj.poly_points[i].x);
+            xmlAttr(pXmlWriter, L"y", obj.poly_points[i].y);
+            pXmlWriter->WriteEndElement();
+        }
+
         pXmlWriter->WriteEndElement();
     }
-
-    pXmlWriter->WriteEndElement();
 
     pXmlWriter->WriteEndElement();
 
