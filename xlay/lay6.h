@@ -2,7 +2,9 @@
 
 #include <windows.h>
 #include <atlstr.h>
+#include <atlcoll.h>
 #include <math.h>
+#include <assert.h>
 
 #define ASSERT_SIZE(_struct, size) \
     C_ASSERT(sizeof(_struct) == (size))
@@ -204,6 +206,15 @@ ASSERT_FIELD_OFFSET(LAY_Object, th_style_custom, 0x28);
 ASSERT_FIELD_OFFSET(LAY_Object, thermobarier, 0x32);
 ASSERT_FIELD_OFFSET(LAY_Object, metalisation, 0x39);
 
+#pragma pack(push, 1)
+struct LAY_Point
+{
+    float x;
+    float y;
+};
+#pragma pack(pop)
+
+
 class CLayFileHeader : public LAY_FileHeader
 {
 public:
@@ -233,6 +244,7 @@ class CLayObject : public LAY_Object
 public:
     CStringA text;
     CStringA marker;
+    CAtlArray<LAY_Point> poly_points; //??
 
     CLayObject()
     {}
@@ -250,5 +262,13 @@ public:
         fread_s(&len, sizeof(len), sizeof(len), 1, file);
         fread_s(marker.GetBuffer(len), len, 1, len, file);
         marker.ReleaseBuffer(len);
+
+        // unk
+        fread_s(&len, sizeof(len), sizeof(len), 1, file);
+        assert(len == 0);
+
+        fread_s(&len, sizeof(len), sizeof(len), 1, file);
+        poly_points.SetCount(len);
+        fread_s(poly_points.GetData(), sizeof(LAY_Point) * len, sizeof(LAY_Point), len, file);
     }
 };

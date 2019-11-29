@@ -161,6 +161,15 @@ int main()
     xmlAttrU(pXmlWriter, L"flip-vertical", obj.flip_vertical); // also text style?
     pXmlWriter->WriteAttributeString(NULL, L"text", NULL, CStringW(obj.text));
     pXmlWriter->WriteAttributeString(NULL, L"marker", NULL, CStringW(obj.marker));
+
+    for (int i = 0; i < obj.poly_points.GetCount(); i++)
+    {
+        pXmlWriter->WriteStartElement(NULL, L"poly-point", NULL);
+        xmlAttr(pXmlWriter, L"x", obj.poly_points[i].x);
+        xmlAttr(pXmlWriter, L"y", obj.poly_points[i].y);
+        pXmlWriter->WriteEndElement();
+    }
+
     pXmlWriter->WriteEndElement();
 
     pXmlWriter->WriteEndElement();
