@@ -190,7 +190,10 @@ struct LAY_Object
     DWORD thzise;
     UCHAR metalisation;
 
-    UCHAR Data[100];
+    UCHAR __pad4[19];
+
+    DWORD text_len;
+    CHAR text[50];
 };
 #pragma pack(pop)
 
@@ -198,3 +201,4 @@ ASSERT_FIELD_OFFSET(LAY_Object, tht_shape, 0x17);
 ASSERT_FIELD_OFFSET(LAY_Object, th_style, 0x1f);
 ASSERT_FIELD_OFFSET(LAY_Object, thermobarier, 0x32);
 ASSERT_FIELD_OFFSET(LAY_Object, metalisation, 0x39);
+ASSERT_FIELD_OFFSET(LAY_Object, text_len, 0x4d);
