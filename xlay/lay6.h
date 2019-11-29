@@ -179,7 +179,10 @@ struct LAY_Object
     UCHAR tht_shape;
 
     UCHAR __pad1_1[7];
-    UCHAR th_style[4];
+    union {
+        UCHAR th_style[4];
+        DWORD start_angle;
+    };
 
     UCHAR __pad1_2[5];
     UCHAR th_style_custom;
