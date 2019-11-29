@@ -195,8 +195,9 @@ struct LAY_Object
     UCHAR cutoff;
     DWORD thzise; // rotation
     UCHAR metalisation;
+    UCHAR soldermask;
 
-    UCHAR __pad4[19];
+    UCHAR __pad4[18];
 };
 #pragma pack(pop)
 
