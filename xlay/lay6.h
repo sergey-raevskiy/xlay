@@ -243,6 +243,7 @@ public:
 class CLayObject : public LAY_Object
 {
 public:
+    int foffset;
     CStringA text;
     CStringA marker;
     CAtlArray<DWORD> groups;
@@ -256,6 +257,7 @@ public:
     {
         DWORD len;
 
+        foffset = ftell(file);
         fread_s((LAY_Object *) this, sizeof(LAY_Object), sizeof(LAY_Object), 1, file);
 
         if (!textchild)
