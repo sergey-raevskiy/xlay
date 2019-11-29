@@ -156,6 +156,14 @@ enum
     THT_SHAPE_SQUARE = 3,
 };
 
+enum
+{
+    TH_STYLE_C1,
+    TH_STYLE_C2,
+    TH_STYLE_I1,
+    TH_STYLE_I2,
+};
+
 #pragma pack(push, 1)
 struct LAY_Object
 {
