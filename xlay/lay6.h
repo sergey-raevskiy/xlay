@@ -170,8 +170,8 @@ struct LAY_Object
     UCHAR type;
     float x;
     float y;
-    float out;
-    float in;
+    float out; // rin (for circles)
+    float in; // rout (for circles)
 
     DWORD line_width;
     UCHAR __pad1;
