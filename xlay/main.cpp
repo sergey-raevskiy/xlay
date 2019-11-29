@@ -79,6 +79,29 @@ static void xmlAttrX(IXmlWriter *pw, LPCWSTR name, UCHAR *v, int len)
     pw->WriteAttributeString(NULL, name, NULL, val);
 }
 
+static LPCWSTR strObjectType(UCHAR type)
+{
+    static CStringW b;
+    switch (type)
+    {
+    case OBJ_THT_PAD:
+        return L"tht-pad";
+    case  OBJ_POLY:
+        return L"poly";
+    case OBJ_CIRCLE:
+        return L"circle";
+    case OBJ_LINE:
+        return L"line";
+    case OBJ_TEXT:
+        return L"text";
+    case OBJ_SMD_PAD:
+        return L"smd-pad";
+    default:
+        b.Format(L"unknown:%d", type);
+        return b;
+    }
+}
+
 int main()
 {
     IXmlWriter *pXmlWriter;
@@ -149,6 +172,7 @@ int main()
         obj.Read(lay);
 
         pXmlWriter->WriteStartElement(NULL, L"obj", NULL);
+        pXmlWriter->WriteAttributeString(NULL, L"type", NULL, strObjectType(obj.type));
         xmlAttr(pXmlWriter, L"x", obj.x);
         xmlAttr(pXmlWriter, L"y", obj.y);
         xmlAttr(pXmlWriter, L"out", obj.out); // radius for tht, height for text

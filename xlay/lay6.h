@@ -245,27 +245,47 @@ public:
     CStringA text;
     CStringA marker;
     CAtlArray<LAY_Point> poly_points; //??
+    CAtlArray<CLayObject> text_objects;
 
     CLayObject()
     {}
 
-    void Read(FILE *file)
+    void Read(FILE *file, bool textchild = false)
     {
         DWORD len;
 
         fread_s((LAY_Object *) this, sizeof(LAY_Object), sizeof(LAY_Object), 1, file);
 
-        fread_s(&len, sizeof(len), sizeof(len), 1, file);
-        fread_s(text.GetBuffer(len), len, 1, len, file);
-        text.ReleaseBuffer(len);
+        if (!textchild)
+        {
+            // ???
 
-        fread_s(&len, sizeof(len), sizeof(len), 1, file);
-        fread_s(marker.GetBuffer(len), len, 1, len, file);
-        marker.ReleaseBuffer(len);
+            fread_s(&len, sizeof(len), sizeof(len), 1, file);
+            fread_s(text.GetBuffer(len), len, 1, len, file);
+            text.ReleaseBuffer(len);
 
-        // unk
-        fread_s(&len, sizeof(len), sizeof(len), 1, file);
-        assert(len == 0);
+            fread_s(&len, sizeof(len), sizeof(len), 1, file);
+            fread_s(marker.GetBuffer(len), len, 1, len, file);
+            marker.ReleaseBuffer(len);
+
+            // unk
+            fread_s(&len, sizeof(len), sizeof(len), 1, file);
+            assert(len == 0);
+        }
+
+        if (type == OBJ_CIRCLE)
+            return;
+
+        if (type == OBJ_TEXT)
+        {
+            fread_s(&len, sizeof(len), sizeof(len), 1, file);
+            for (int i = 0; i < len; i++)
+            {
+                text_objects.Add();
+                text_objects[text_objects.GetCount() - 1].Read(file, true);
+            }
+            return;
+        }
 
         fread_s(&len, sizeof(len), sizeof(len), 1, file);
         poly_points.SetCount(len);
