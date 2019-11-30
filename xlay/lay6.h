@@ -143,7 +143,10 @@ struct LAY_Object
     UCHAR layer;
     UCHAR tht_shape;
 
-    UCHAR __pad1_1[7];
+    UCHAR __pad_1_1[4];
+    UINT16 component_id;
+    UCHAR unk1;
+
     union {
         UCHAR th_style[4];
         DWORD start_angle;
