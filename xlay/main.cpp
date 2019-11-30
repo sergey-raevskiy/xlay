@@ -266,6 +266,14 @@ int main()
 
         CLayTrailer tr;
         tr.Read(lay);
+
+        pXmlWriter->WriteStartElement(NULL, L"trailer", NULL);
+        xmlAttrU(pXmlWriter, L"active_board_tab", tr.active_board_tab);
+        xmlAttr(pXmlWriter, L"project_name", CStringW(tr.project_name.str()));
+        xmlAttr(pXmlWriter, L"project_author", CStringW(tr.project_author.str()));
+        xmlAttr(pXmlWriter, L"project_company", CStringW(tr.project_company.str()));
+        xmlAttr(pXmlWriter, L"comment", CStringW(tr.comment));
+        pXmlWriter->WriteEndElement();
     }
 
     pXmlWriter->WriteEndElement();

@@ -195,9 +195,14 @@ struct LAY_Component
 struct LAY_Trailer
 {
     DWORD active_board_tab;
+    LAY_String<100> project_name;
+    LAY_String<100> project_author;
+    LAY_String<100> project_company;
+    DWORD comment_len;
 };
 #pragma pack(pop)
 
+ASSERT_SIZE(LAY_Trailer, 0x137);
 
 class CLayFileHeader : public LAY_FileHeader
 {
@@ -337,11 +342,16 @@ public:
 class CLayTrailer : public LAY_Trailer
 {
 public:
+    CString comment;
+
     CLayTrailer()
     {}
 
     void Read(FILE *file)
     {
         fread_s((LAY_Trailer *) this, sizeof(LAY_Trailer), sizeof(LAY_Trailer), 1, file);
+
+        fread_s(comment.GetBuffer(comment_len), comment_len, 1, comment_len, file);
+        comment.ReleaseBuffer(comment_len);
     }
 };
