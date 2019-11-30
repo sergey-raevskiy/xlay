@@ -198,6 +198,7 @@ int main()
         xmlAttrU(pXmlWriter, L"line-width", obj.line_width); // also text style?
         xmlAttrU(pXmlWriter, L"flip-vertical", obj.flip_vertical); // also text style?
         xmlAttrU(pXmlWriter, L"soldermask", obj.soldermask); // also text style?
+        xmlAttrX(pXmlWriter, L"__pad1_1", obj.__pad1_1, sizeof(obj.__pad1_1));
         pXmlWriter->WriteAttributeString(NULL, L"text", NULL, CStringW(obj.text));
         pXmlWriter->WriteAttributeString(NULL, L"marker", NULL, CStringW(obj.marker));
 
@@ -226,6 +227,7 @@ int main()
             xmlAttr(pXmlWriter, L"package", CStringW(obj.component.package));
             xmlAttr(pXmlWriter, L"comment", CStringW(obj.component.comment));
             xmlAttrU(pXmlWriter, L"use", obj.component.use);
+            pXmlWriter->WriteEndElement();
         }
 
         pXmlWriter->WriteEndElement();
