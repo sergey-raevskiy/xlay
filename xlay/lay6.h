@@ -221,8 +221,7 @@ struct LAY_Component
     float off_x;
     float off_y;
     UCHAR center_mode;
-    DWORD unk;
-    DWORD rotation;
+    double rotation;
 };
 #pragma pack(pop)
 

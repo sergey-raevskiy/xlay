@@ -222,6 +222,7 @@ int main()
             xmlAttr(pXmlWriter, L"off_x", obj.component.off_x);
             xmlAttr(pXmlWriter, L"off_y", obj.component.off_y);
             xmlAttrU(pXmlWriter, L"center_mode", obj.component.center_mode);
+            xmlAttr(pXmlWriter, L"rotation", obj.component.rotation);
             xmlAttr(pXmlWriter, L"package", CStringW(obj.component.package));
             xmlAttr(pXmlWriter, L"comment", CStringW(obj.component.comment));
             xmlAttrU(pXmlWriter, L"use", obj.component.use);
