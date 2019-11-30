@@ -46,11 +46,7 @@ private:
     {
         const char *pc = (const char *) pv;
         *pcbWritten = cb;
-        while (cb > 0)
-        {
-            putc(*pc++, stdout);
-            cb--;
-        }
+        fwrite(pv, 1, cb, stdout);
         return S_OK;
     }
 };
@@ -114,7 +110,7 @@ int main()
     FILE *lay;
     HRESULT hr;
 
-    errno = fopen_s(&lay, "C:\\Users\\Sergey.Raevskiy\\Downloads\\test9.lay6", "rb");
+    errno = fopen_s(&lay, "C:\\Users\\Sergey.Raevskiy\\Downloads\\OLD_Clock.lay6", "rb");
     if (errno)
     {
         printf("fopen_s() failed: %d\n", errno);
@@ -167,6 +163,8 @@ int main()
         pXmlWriter->WriteAttributeString(NULL, L"centerX", NULL, centerX);
         pXmlWriter->WriteAttributeString(NULL, L"centerY", NULL, centerY);
         pXmlWriter->WriteAttributeString(NULL, L"numObjects", NULL, numObjects);
+
+        CAtlArray<int> nconn;
 
         for (int nob = 0; nob < nobjects; nob++)
         {
@@ -229,9 +227,14 @@ int main()
 
             pXmlWriter->WriteEndElement();
             pXmlWriter->Flush();
+
+            if (obj.type == OBJ_THT_PAD || obj.type == OBJ_SMD_PAD)
+            {
+                nconn.Add(nob);
+            }
         }
 
-        for (int nob = 0; nob < nobjects; nob++)
+        for (int nob = 0; nob < nconn.GetCount(); nob++)
         {
             CStringW offset;
             offset.Format(L" offset: 0x%x ", ftell(lay));
@@ -242,7 +245,7 @@ int main()
             conn.Read(lay);
 
             pXmlWriter->WriteStartElement(NULL, L"connections", NULL);
-            xmlAttrU(pXmlWriter, L"obj_id", nob);
+            xmlAttrU(pXmlWriter, L"obj_id", nconn[nob]);
 
             for (int i = 0; i < conn.connections.GetCount(); i++)
             {
