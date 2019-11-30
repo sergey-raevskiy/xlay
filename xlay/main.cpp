@@ -168,12 +168,13 @@ int main()
 
     for (int nob = 0; nob < nobjects; nob++)
     {
+        CStringW offset;
+        offset.Format(L" offset: 0x%x ", ftell(lay));
+        pXmlWriter->WriteComment(offset);
+        pXmlWriter->Flush();
+
         CLayObject obj;
         obj.Read(lay);
-
-        CStringW offset;
-        offset.Format(L" offset: 0x%x ", obj.foffset);
-        pXmlWriter->WriteComment(offset);
 
         pXmlWriter->WriteStartElement(NULL, L"obj", NULL);
         pXmlWriter->WriteAttributeString(NULL, L"type", NULL, strObjectType(obj.type));

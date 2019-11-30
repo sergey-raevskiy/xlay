@@ -215,6 +215,17 @@ struct LAY_Point
 };
 #pragma pack(pop)
 
+#pragma pack(push, 1)
+struct LAY_Component
+{
+    float off_x;
+    float off_y;
+    UCHAR center_mode;
+    DWORD unk;
+    DWORD rotation;
+};
+#pragma pack(pop)
+
 
 class CLayFileHeader : public LAY_FileHeader
 {
@@ -240,15 +251,43 @@ public:
     }
 };
 
+class CLayComponent : public LAY_Component
+{
+public:
+    CStringA package;
+    CStringA comment;
+    UCHAR use;
+
+    CLayComponent()
+    {}
+
+    void Read(FILE *file)
+    {
+        DWORD len;
+
+        fread_s((LAY_Component *) this, sizeof(LAY_Component), sizeof(LAY_Component), 1, file);
+
+        fread_s(&len, sizeof(len), sizeof(len), 1, file);
+        fread_s(package.GetBuffer(len), len, 1, len, file);
+        package.ReleaseBuffer(len);
+
+        fread_s(&len, sizeof(len), sizeof(len), 1, file);
+        fread_s(comment.GetBuffer(len), len, 1, len, file);
+        comment.ReleaseBuffer(len);
+
+        fread_s(&use, sizeof(use), sizeof(use), 1, file);
+    }
+};
+
 class CLayObject : public LAY_Object
 {
 public:
-    int foffset;
     CStringA text;
     CStringA marker;
     CAtlArray<DWORD> groups;
     CAtlArray<LAY_Point> poly_points; //??
     CAtlArray<CLayObject> text_objects;
+    CLayComponent component;
 
     CLayObject()
     {}
@@ -257,7 +296,6 @@ public:
     {
         DWORD len;
 
-        foffset = ftell(file);
         fread_s((LAY_Object *) this, sizeof(LAY_Object), sizeof(LAY_Object), 1, file);
 
         if (!textchild)
@@ -288,6 +326,12 @@ public:
                 text_objects.Add();
                 text_objects[text_objects.GetCount() - 1].Read(file, true);
             }
+
+            if (tht_shape == 1)
+            {
+                component.Read(file);
+            }
+
             return;
         }
 
