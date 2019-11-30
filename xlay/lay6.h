@@ -191,6 +191,13 @@ struct LAY_Component
 };
 #pragma pack(pop)
 
+#pragma pack(push, 1)
+struct LAY_Trailer
+{
+    DWORD active_board_tab;
+};
+#pragma pack(pop)
+
 
 class CLayFileHeader : public LAY_FileHeader
 {
@@ -324,5 +331,17 @@ public:
         fread_s(&len, sizeof(len), sizeof(len), 1, file);
         connections.SetCount(len);
         fread_s(connections.GetData(), sizeof(DWORD) * len, sizeof(DWORD), len, file);
+    }
+};
+
+class CLayTrailer : public LAY_Trailer
+{
+public:
+    CLayTrailer()
+    {}
+
+    void Read(FILE *file)
+    {
+        fread_s((LAY_Trailer *) this, sizeof(LAY_Trailer), sizeof(LAY_Trailer), 1, file);
     }
 };
