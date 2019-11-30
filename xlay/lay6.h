@@ -26,41 +26,6 @@ struct LAY_String
 };
 #pragma pack(pop)
 
-#pragma pack(push, 1)
-struct LAY_CrazyFloat
-{
-    UINT16 lo;
-    UINT16 hi;
-
-    UINT mantisa()
-    {
-        UINT r = lo;
-        r += (hi & 0xf) << 16;
-        r += 0x100000;
-        return r;
-    }
-
-    UINT exponent()
-    {
-        UINT r = hi;
-        r >>= 4;
-        r &= 0xff;
-        return r;
-    }
-
-    CStringA str()
-    {
-        UINT m = mantisa();
-        int e = exponent() - 19; // wtf
-        float val = m * pow(2.f, e);
-
-        CStringA s;
-        s.Format("%fum", val);
-        return s;
-    }
-};
-#pragma pack(pop)
-
 ASSERT_SIZE(LAY_String<10>, 11);
 
 #pragma pack(push, 1)
@@ -94,8 +59,7 @@ struct LAY_BoardHeader
     DWORD size_y;
 
     UCHAR ground_pane[7];
-    UCHAR __pad1[4];
-    LAY_CrazyFloat active_grid_val;
+    double active_grid_val;
     UCHAR __pad1_1[4];
     DWORD zoom; // ?
     DWORD viewport_offset_x;
@@ -132,7 +96,7 @@ ASSERT_SIZE(LAY_BoardHeader, 534);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, size_x, 0x23);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, size_y, 0x27);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, ground_pane, 0x2b);
-ASSERT_FIELD_OFFSET(LAY_BoardHeader, active_grid_val, 0x36);
+ASSERT_FIELD_OFFSET(LAY_BoardHeader, active_grid_val, 0x32);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, zoom, 0x3e);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, layer_visible, 0x4e);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, scanned_copy_top_path, 0x57);
