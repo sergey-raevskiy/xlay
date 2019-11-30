@@ -60,8 +60,7 @@ struct LAY_BoardHeader
 
     UCHAR ground_pane[7];
     double active_grid_val;
-    UCHAR __pad1_1[4];
-    DWORD zoom; // ?
+    double zoom;
     DWORD viewport_offset_x;
     DWORD viewport_offset_y;
 
@@ -97,7 +96,7 @@ ASSERT_FIELD_OFFSET(LAY_BoardHeader, size_x, 0x23);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, size_y, 0x27);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, ground_pane, 0x2b);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, active_grid_val, 0x32);
-ASSERT_FIELD_OFFSET(LAY_BoardHeader, zoom, 0x3e);
+ASSERT_FIELD_OFFSET(LAY_BoardHeader, zoom, 0x3a);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, layer_visible, 0x4e);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, scanned_copy_top_path, 0x57);
 ASSERT_FIELD_OFFSET(LAY_BoardHeader, scanned_copy_bottom_path, 0x120);

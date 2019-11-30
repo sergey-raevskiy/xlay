@@ -164,7 +164,7 @@ int main()
         pXmlWriter->WriteAttributeString(NULL, L"sizeX", NULL, sizeX);
         pXmlWriter->WriteAttributeString(NULL, L"sizeY", NULL, sizeY);
         xmlAttr(pXmlWriter, L"active_grid_step", bhdr.active_grid_val);
-        pXmlWriter->WriteAttributeString(NULL, L"zoom", NULL, zoom);
+        xmlAttr(pXmlWriter, L"zoom", bhdr.zoom);
         pXmlWriter->WriteAttributeString(NULL, L"centerX", NULL, centerX);
         pXmlWriter->WriteAttributeString(NULL, L"centerY", NULL, centerY);
         pXmlWriter->WriteAttributeString(NULL, L"numObjects", NULL, numObjects);
