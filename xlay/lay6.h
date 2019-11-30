@@ -308,3 +308,21 @@ public:
         fread_s(poly_points.GetData(), sizeof(LAY_Point) * len, sizeof(LAY_Point), len, file);
     }
 };
+
+class CLayConnections
+{
+public:
+    CAtlArray<DWORD> connections;
+
+    CLayConnections()
+    {}
+
+    void Read(FILE *file, bool textchild = false)
+    {
+        DWORD len;
+
+        fread_s(&len, sizeof(len), sizeof(len), 1, file);
+        connections.SetCount(len);
+        fread_s(connections.GetData(), sizeof(DWORD) * len, sizeof(DWORD), len, file);
+    }
+};

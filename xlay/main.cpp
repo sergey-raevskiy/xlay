@@ -234,6 +234,30 @@ int main()
         pXmlWriter->Flush();
     }
 
+    for (int nob = 0; nob < nobjects; nob++)
+    {
+        CStringW offset;
+        offset.Format(L" offset: 0x%x ", ftell(lay));
+        pXmlWriter->WriteComment(offset);
+        pXmlWriter->Flush();
+
+        CLayConnections conn;
+        conn.Read(lay);
+
+        pXmlWriter->WriteStartElement(NULL, L"connections", NULL);
+        xmlAttrU(pXmlWriter, L"obj_id", nob);
+
+        for (int i = 0; i < conn.connections.GetCount(); i++)
+        {
+            pXmlWriter->WriteStartElement(NULL, L"c", NULL);
+            xmlAttrU(pXmlWriter, L"obj_id", conn.connections[i]);
+            pXmlWriter->WriteEndElement();
+        }
+
+        pXmlWriter->WriteEndElement();
+        pXmlWriter->Flush();
+    }
+
     pXmlWriter->WriteEndElement();
 
     pXmlWriter->Flush();
