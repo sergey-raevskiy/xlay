@@ -254,11 +254,13 @@ public:
 class CLayComponent : public LAY_Component
 {
 public:
+    bool valid;
     CStringA package;
     CStringA comment;
     UCHAR use;
 
     CLayComponent()
+        : valid(false)
     {}
 
     void Read(FILE *file)
@@ -276,6 +278,7 @@ public:
         comment.ReleaseBuffer(len);
 
         fread_s(&use, sizeof(use), sizeof(use), 1, file);
+        valid = true;
     }
 };
 

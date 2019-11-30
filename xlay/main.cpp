@@ -79,6 +79,11 @@ static void xmlAttrX(IXmlWriter *pw, LPCWSTR name, UCHAR *v, int len)
     pw->WriteAttributeString(NULL, name, NULL, val);
 }
 
+static void xmlAttr(IXmlWriter *pw, LPCWSTR name, LPCWSTR val)
+{
+    pw->WriteAttributeString(NULL, name, NULL, val);
+}
+
 static LPCWSTR strObjectType(UCHAR type)
 {
     static CStringW b;
@@ -209,6 +214,17 @@ int main()
             xmlAttr(pXmlWriter, L"x", obj.poly_points[i].x);
             xmlAttr(pXmlWriter, L"y", obj.poly_points[i].y);
             pXmlWriter->WriteEndElement();
+        }
+
+        if (obj.component.valid)
+        {
+            pXmlWriter->WriteStartElement(NULL, L"component", NULL);
+            xmlAttr(pXmlWriter, L"off_x", obj.component.off_x);
+            xmlAttr(pXmlWriter, L"off_y", obj.component.off_y);
+            xmlAttrU(pXmlWriter, L"center_mode", obj.component.center_mode);
+            xmlAttr(pXmlWriter, L"package", CStringW(obj.component.package));
+            xmlAttr(pXmlWriter, L"comment", CStringW(obj.component.comment));
+            xmlAttrU(pXmlWriter, L"use", obj.component.use);
         }
 
         pXmlWriter->WriteEndElement();
