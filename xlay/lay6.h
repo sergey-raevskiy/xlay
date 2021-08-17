@@ -74,10 +74,13 @@ struct LAY_BoardHeader
     LAY_String<200> scanned_copy_top_path;
     LAY_String<200> scanned_copy_bottom_path;
 
-    DWORD unk1;
-    DWORD unk2;
+    DWORD dpi_top;
+    DWORD dpi_bottom;
 
-    UCHAR __pad3[16];
+    DWORD shiftx_top;
+    DWORD shifty_top;
+    DWORD shiftx_bottom;
+    DWORD shifty_bottom;
 
     DWORD unk3;
     DWORD unk4;
