@@ -157,9 +157,9 @@ struct LAY_Object
 
     UCHAR __pad1_2[5];
     UCHAR th_style_custom; // also fill
-    
+
     DWORD ground_distance;
-    UCHAR __pad2[4];
+    UCHAR __pad2[5];
     UCHAR thermobarier;
     UCHAR flip_vertical;
     UCHAR cutoff;
