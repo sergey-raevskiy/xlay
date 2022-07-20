@@ -148,7 +148,7 @@ struct LAY_Object
 
     UCHAR __pad_1_1[4];
     UINT16 component_id;
-    UCHAR unk1;
+    UCHAR selected;
 
     union {
         UCHAR th_style[4];
