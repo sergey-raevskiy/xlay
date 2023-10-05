@@ -7,6 +7,8 @@ This repository contains some code that can read Sprint Layout (xlay) files.
 # Overall board record structure
 ![image](https://github.com/sergey-raevskiy/xlay/assets/3956978/79cb89f3-ea6c-41bd-879c-d550b70e9ec2)
 
+NOTE: The number of connections (M) is determined as number of objects of type THT_PAD or SMD_PAD. In other words, connection record are skipped for non-pad objects.
+
 # LAY file specific data types
 It seems that Sprint Layout is written in Delphi. This may be the reason that LAY files use some uncommon data types:
 
